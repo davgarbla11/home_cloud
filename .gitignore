@@ -1,0 +1,34 @@
+# --- Dependencias y Archivos de Compilación ---
+**/node_modules
+**/dist
+**/my_cloud/uploads # ¡Muy importante! No subas tus archivos personales
+**/uploads # Por si usaste esta carpeta para pruebas locales
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Archivos de Entorno y Secretos ---
+.env # ¡CRUCIAL PARA LA SEGURIDAD!
+*.env
+.env.*
+
+# --- Archivos de Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# --- Archivos de Editor y Herramientas ---
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-project
+*.sublime-workspace
+
+# --- Angular Cache ---
+.angular/cache
