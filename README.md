@@ -39,7 +39,7 @@ DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=password
 DB_NAME=dav_home_cloud
-JWT_SECRET=esto_es_una_frase_que_haces_chiquitin_mirando_estos_datos_eh_que_te_crees_mas_listo_que_yo
+JWT_SECRET=secret_token
 
 4.  Ejecuta `npm install`.
 5.  Modifica `run_en_tu_sql.sql` y cambia los datos del usuario administrador, recuerda poner la contraseña encriptada con bcrypt, usar `hashear.js`
