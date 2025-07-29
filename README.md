@@ -52,5 +52,17 @@ JWT_SECRET=esto_es_una_frase_que_haces_chiquitin_mirando_estos_datos_eh_que_te_c
 3.  Inicia el servidor de desarrollo: `ng serve`.
 4.  Abre tu navegador en `http://localhost:4200`.
 
+### Imagenes 
+
+![Login page](.github/images/login.png)
+
+![Vista principal del explorador de archivos](.github/images/explorador.png)
+
+![Dialogos](.github/images/dinamico.png)
+
+![Panel de Gestion](.github/images/admin.png)
+
+![Settings Page](.github/images/settings.png)
+
 ---
 *Este proyecto fue desarrollado como un ejercicio de aprendizaje profundo en tecnologías full-stack. © Davgarbla11*

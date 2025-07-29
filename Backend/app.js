@@ -15,7 +15,7 @@ const app = express();
 const PORT = 3000;
 
 // --- CONFIGURACIÓN PRINCIPAL ---
-const BASE_STORAGE_PATH = path.resolve(__dirname, 'my_cloud/uploads');
+const BASE_STORAGE_PATH = path.resolve(__dirname, 'uploads');
 
 const dbConfig = {
   host: process.env.DB_HOST,
