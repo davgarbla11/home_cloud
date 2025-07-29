@@ -1,0 +1,72 @@
+<!-- Contenido completo para: src/app/pages/admin-panel/admin-panel.component.html -->
+
+<div class="container">
+  <header class="header">
+    <h1>Panel de Administración</h1>
+    <p>Panel de gestion de tu cloud familiar.</p>
+  </header>
+
+  <!-- Sección para Crear Nuevos Usuarios -->
+  <section class="card create-user-card">
+    <h2>Crear Nuevo Usuario</h2>
+    <form class="create-user-form" (ngSubmit)="onCreateUser()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="username">Nombre de Usuario</label>
+          <input id="username" type="text" [(ngModel)]="newUser.username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña Temporal</label>
+          <input id="password" type="text" [(ngModel)]="newUser.password" name="password" required>
+        </div>
+      </div>
+      <button type="submit" class="primary-action-button">Crear Usuario</button>
+    </form>
+  </section>
+
+  <!-- Sección para Listar y Gestionar Usuarios -->
+  <section class="card user-list-card">
+    <h2>Lista de Usuarios</h2>
+    <div class="table-container">
+      @if(users$ | async; as users){
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Rol</th>
+              <th>Creado el</th>
+              <th>Pass. Temporal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(user of users; track user.id){
+              <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td><span class="role-badge" [class.admin]="user.role === 'admin'">{{ user.role }}</span></td>
+                <td>{{ user.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td>
+                  <span class="status-indicator" [class.yes]="user.is_temporary_password">
+                    {{ user.is_temporary_password ? 'Sí' : 'No' }}
+                  </span>
+                </td>
+                <td>
+                  <!-- Deshabilitamos el botón de borrar para el admin actual -->
+                  <button class="action-button delete" 
+                          (click)="onDeleteUser(user)" 
+                          [disabled]="user.id === currentAdminId">
+                    Borrar
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <p>Cargando usuarios...</p>
+      }
+    </div>
+  </section>
+</div>

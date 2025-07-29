@@ -1,0 +1,68 @@
+<!-- Contenido completo para: src/app/app.component.html -->
+
+<!-- Usamos un @if para decidir qué layout mostrar -->
+@if(authService.isAuthenticated()){
+  <!-- LAYOUT PRINCIPAL PARA USUARIOS AUTENTICADOS -->
+  <div class="app-layout">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h3>DAV Family Cloud</h3>
+        @if(user$ | async; as user){
+          <span class="username">
+            <i class="fa-solid fa-hand-sparkles"></i>
+            ¡Hola, {{ user.username }}!
+          </span>
+        }
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a routerLink="/my-cloud" routerLinkActive="active">
+            <span class="icon">
+              <i class="fa-solid fa-cloud"></i>
+            </span>
+            <span>Cloud Familiar</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/settings" routerLinkActive="active">
+            <span class="icon">
+              <i class="fa-solid fa-gear"></i>
+            </span>
+            <span>Ajustes</span>
+          </a>
+        </li>
+        <!-- Menú de Admin: solo se muestra si el rol del usuario es 'admin' -->
+        @if((user$ | async)?.role === 'admin'){
+          <li>
+            <a routerLink="/admin" routerLinkActive="active">
+              <span class="icon">
+                <i class="fa-solid fa-user-shield"></i>
+              </span>
+              <span>Panel de Admin</span>
+            </a>
+          </li>
+        }
+      </ul>
+      <div class="sidebar-footer">
+        <a (click)="authService.logout()">Cerrar Sesión</a>
+      </div>
+    </nav>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+
+      <footer class="app-footer">
+        <p>Desarrollado por David Garcia Blanco</p>
+        <span>DAV Family Cloud v0.8 Beta</span>
+      </footer>
+
+    </main>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}
+
+<!-- Dialogo nuevo en version 0.5.1 -->
+<!-- Ocultamos el componente entero si el estado del diálogo es nulo (es decir, está cerrado) -->
+<app-confirmation-dialog [hidden]="!(dialogState$ | async)"></app-confirmation-dialog>
+
+

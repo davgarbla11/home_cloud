@@ -1,0 +1,27 @@
+/* Contenido completo para: src/app/pages/settings/settings.component.css */
+
+/* Reutilizamos los estilos del otro componente para mantener la consistencia */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.header {
+  margin-bottom: 2rem;
+}
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.header h1 .icon {
+  color: #007bff;
+  margin-right: 0.5rem;
+}
+.card {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 1.5rem;
+}

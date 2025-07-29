@@ -1,0 +1,132 @@
+/* Contenido completo para: src/app/app.component.css */
+
+/* :host se refiere al propio componente app-root */
+:host {
+  display: block;
+  height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+  overflow: hidden; /* Evita scrolls indeseados en el nivel más alto */
+}
+
+.app-layout {
+  display: flex;
+  height: 100%;
+}
+
+/* Estilos del Menú Lateral */
+.sidebar {
+  width: 240px;
+  background-color: #0d1b2a; /* Azul oscuro profundo */
+  color: #e0e1dd; /* Un blanco cálido para el texto */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0; /* Evita que el sidebar se encoja si el contenido es muy grande */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #1b263b; /* Un separador sutil */
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  color: #e0e1dd;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-left: 4px solid transparent; /* Indicador de página activa */
+}
+
+.sidebar-menu li a:hover {
+  background-color: #1b263b; /* Un azul un poco más claro para el hover */
+}
+
+/* Estilo para el enlace de la página activa */
+.sidebar-menu li a.active {
+  background-color: #1b263b;
+  color: #ffffff; /* El texto se hace blanco puro */
+  border-left-color: #007bff; /* Usamos el azul primario como indicador */
+}
+
+.sidebar-menu .icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+/* Estilos del Contenido Principal */
+.main-content {
+  flex-grow: 1; /* Ocupa todo el espacio restante */
+  padding: 2.5rem;
+  overflow-y: auto; /* Permite scroll vertical si el contenido es más largo que la pantalla */
+  background-color: #f8f9fa; /* Fondo claro para el contenido */
+}
+
+/* Añade esto al final de src/app/app.component.css */
+
+.app-footer {
+  position: fixed; /* Lo fijamos en la ventana */
+  bottom: 0; /* Lo pegamos a la parte inferior */
+  right: 0; /* Lo pegamos a la derecha */
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
+  backdrop-filter: blur(4px); /* Efecto de desenfoque para lo que haya detrás */
+  -webkit-backdrop-filter: blur(4px); /* Para compatibilidad con Safari */
+  border-top: 1px solid #e9ecef;
+  border-left: 1px solid #e9ecef;
+  border-top-left-radius: 0.5rem; /* Redondeamos la esquina que se ve */
+  font-size: 0.8rem;
+  color: #6c757d; /* Un color de texto grisáceo y sutil */
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 1000; /* Nos aseguramos de que esté por encima de otros elementos */
+  transition: opacity 0.3s ease;
+}
+
+.app-footer:hover {
+  opacity: 1; /* Hacemos que sea totalmente opaco al pasar el ratón */
+}
+
+.app-footer p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Añade esto a tu src/app/app.component.css (al final) */
+
+.sidebar-header .username {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #adb5bd;
+  margin-top: 0.25rem;
+}
+
+.sidebar-footer {
+  margin-top: auto; /* Empuja el footer hacia abajo */
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #1b263b;
+}
+
+.sidebar-footer a {
+  color: #e0e1dd;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sidebar-footer a:hover {
+  color: #ffffff;
+}

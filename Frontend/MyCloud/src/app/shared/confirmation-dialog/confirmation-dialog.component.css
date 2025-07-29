@@ -1,0 +1,148 @@
+/* Contenido completo para: src/app/shared/confirmation-dialog/confirmation-dialog.component.css */
+
+/* :host asegura que el componente ocupe toda la pantalla para capturar los clics */
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050; /* Un z-index alto para estar por encima de todo */
+}
+
+.dialog-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(13, 27, 42, 0.6); /* Azul oscuro de tu sidebar, semitransparente */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.dialog-container {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  overflow: hidden;
+  animation: slideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dialog-header {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.icon-wrapper.danger {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+/* --- NUEVOS ESTILOS PARA EL TIPO 'prompt' --- */
+.icon-wrapper.prompt {
+  background-color: #cfe2ff; /* Fondo azul claro */
+  color: var(--primary-blue); /* Icono azul oscuro (usa tu variable) */
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.dialog-body {
+  padding: 1.5rem;
+  text-align: center;
+  color: #6c757d;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.dialog-footer {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.dialog-footer button {
+  flex: 1;
+  padding: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.3rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.button-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.button-secondary:hover {
+  background-color: #5a6268;
+}
+
+.button-primary.danger {
+  background-color: #dc3545;
+}
+.button-primary.danger:hover {
+  background-color: #c82333;
+}
+
+.prompt-group {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.prompt-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.prompt-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.button-primary.prompt {
+  background-color: rgb(100, 169, 252);
+}
+.button-primary.prompt:hover {
+  background-color: var(--primary-blue-hover);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-30px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}

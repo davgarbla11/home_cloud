@@ -1,0 +1,25 @@
+/* Definimos nuestras variables de color para un fácil mantenimiento */
+:root {
+  --background-color: #f8f9fa; /* Un blanco roto muy sutil, casi blanco */
+  --card-color: #ffffff;
+  --text-color: #212529; /* Un negro suave, no tan duro como el #000 */
+  --primary-blue: #0056b3; /* Un azul claro y vibrante */
+  --primary-blue-hover: #0b5ed7; /* Un poco más oscuro para el hover */
+  --border-color: #dee2e6;
+  --font-family: 'Poppins', sans-serif; /* Nuestra fuente principal */
+}
+
+/* Reseteo básico y estilos globales para el body */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hacemos que el layout sea más predecible */
+* {
+  box-sizing: border-box;
+}

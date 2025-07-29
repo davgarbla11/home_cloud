@@ -1,0 +1,163 @@
+<div class="container">
+  <header class="header">
+    <h1>Cloud</h1>
+    <nav class="breadcrumbs">
+      @if(currentPath.length > 0) {
+        <button class="breadcrumb-button up-button" (click)="navigateUp()" title="Subir un nivel">
+          <i class="fa-solid fa-arrow-turn-up"></i>
+        </button>
+      }
+      <a (click)="navigateToRoot()">root</a>
+      @for(crumb of currentPath; track crumb; let i = $index) {
+        <span>/</span>
+        <a (click)="navigateToCrumb(i)">{{ crumb }}</a>
+      }
+    </nav>
+  </header>
+
+  <!-- ============================================== -->
+  <!-- === SECCIÓN DE ACCIONES - ESTRUCTURA CORREGIDA === -->
+  <!-- ============================================== -->
+  <section class="card action-section">
+    <!-- Grupo 1: Subida de Archivos -->
+    <div class="upload-area">
+      <input type="file" (change)="onFileSelected($event)" #filesInput style="display: none;" multiple>
+      <button class="upload-button main-upload" (click)="filesInput.click()">
+        <i class="fa-solid fa-file-arrow-up"></i>
+        <span>Subir Archivos</span>
+      </button>
+    </div>
+
+    <!-- Grupo 2: Acciones Secundarias (Subir Carpeta, Crear Carpeta) -->
+    <div class="secondary-actions">
+      <input type="file" (change)="onFileSelected($event)" #folderInput style="display: none;" webkitdirectory directory>
+      <button class="secondary-button" (click)="folderInput.click()" title="Subir Carpeta">
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </button>
+      <button class="secondary-button" (click)="onCreateFolder()" title="Nueva Carpeta">
+        <i class="fa-solid fa-folder-plus"></i>
+      </button>
+    </div>
+
+    <!-- Grupo 3: Acciones de Contexto (para ítems seleccionados) -->
+    <div class="context-actions">
+      <button class="context-button download" title="Descargar Seleccionados" (click)="onDownloadSelected()" [disabled]="selectedItems.size === 0">
+        <i class="fa-solid fa-download"></i>
+      </button>
+      <button class="context-button delete" title="Borrar Seleccionados" (click)="onDeleteSelected()" [disabled]="selectedItems.size === 0">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================================== -->
+  <!-- === SECCIÓN DE PREVISUALIZACIÓN Y PROGRESO DE SUBIDA === -->
+  <!-- ========================================================== -->
+  <!-- Esta sección solo aparece si hay archivos seleccionados o subiéndose -->
+  @if(selectedFiles.length > 0 || isUploading) {
+    <section class="card upload-status-section">
+      <!-- Previsualización antes de subir -->
+      @if(selectedFiles.length > 0 && !isUploading) {
+        <div class="upload-preview">
+          <h4>Archivos listos para subir:</h4>
+          <ul>
+            @for(file of selectedFiles; track file.name) {
+              <li>{{ getDisplayFileName(file) }}</li>
+            }
+          </ul>
+          <button class="upload-now-button" (click)="onUpload()">
+            Subir {{ selectedFiles.length }} archivo(s)
+          </button>
+        </div>
+      }
+
+      <!-- Progreso durante la subida -->
+      @if(isUploading) {
+        <div class="upload-progress-list">
+          <h4>Subiendo archivos...</h4>
+          <ul>
+            @for(file of selectedFiles; track file.name) {
+              <li class="progress-item">
+                <span class="file-name">{{ getDisplayFileName(file) }}</span>
+                <div class="progress-bar">
+                  <div class="progress" 
+                       [style.width.%]="uploadProgress[file.name] || 0"
+                       [class.error]="uploadProgress[file.name] === -1">
+                  </div>
+                </div>
+                <span class="progress-text">
+                  @if(uploadProgress[file.name] === -1) {
+                    Error
+                  } @else {
+                    {{ uploadProgress[file.name] || 0 }}%
+                  }
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </section>
+  }
+
+  <!-- ============================================== -->
+  <!-- === SECCIÓN DEL EXPLORADOR DE ARCHIVOS === -->
+  <!-- ============================================== -->
+  <section class="card file-explorer">
+    @if (isLoading) {
+      <div class="loading-state">Cargando...</div>
+    }
+
+    @if (items$ | async; as items) {
+      @if (!isLoading && items.length === 0) {
+        <div class="empty-state">Esta carpeta está vacía.</div>
+      }
+
+      @if (items.length > 0) {
+        <ul class="file-list">
+          <!-- Carpetas -->
+          @for (item of items; track item.name) {
+            @if (item.isDirectory) {
+              <li [class.selected]="isSelected(item)">
+                <div class="item-selector">
+                  <input 
+                    type="checkbox" 
+                    [checked]="isSelected(item)" 
+                    (change)="toggleSelection(item, $event)"
+                    (click)="$event.stopPropagation()"
+                  >
+                </div>
+                <span class="item-icon"><i class="fa-solid fa-folder"></i></span>
+                <a class="item-name folder" (click)="navigateTo(item.name)">{{ item.name }}</a>
+                <!-- <div class="file-actions">
+                  <button (click)="onDeleteItem(item)" class="action-button delete" title="Borrar carpeta"><i class="fa-solid fa-trash"></i></button>
+                </div> -->
+              </li>
+            }
+          }
+          <!-- Archivos -->
+          @for (item of items; track item.name) {
+            @if (!item.isDirectory) {
+              <li [class.selected]="isSelected(item)">
+                <div class="item-selector">
+                  <input 
+                    type="checkbox" 
+                    [checked]="isSelected(item)" 
+                    (change)="toggleSelection(item, $event)"
+                    (click)="$event.stopPropagation()"
+                  >
+                </div>
+                <span class="item-icon"><i [ngClass]="getIconForFile(item.name)"></i></span>
+                <span class="item-name">{{ item.name }}</span>
+                <!-- <div class="file-actions">
+                  <button (click)="onDownloadFile(item)" class="action-button download" title="Descargar archivo"><i class="fa-solid fa-download"></i></button>
+                  <button (click)="onDeleteItem(item)" class="action-button delete" title="Borrar archivo"><i class="fa-solid fa-trash"></i></button>
+                </div> -->
+              </li>
+            }
+          }
+        </ul>
+      }
+    }
+  </section>
+</div>
